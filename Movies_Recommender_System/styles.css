@@ -1,0 +1,33 @@
+/* styles.css */
+.header {
+    text-align: center;
+    font-family: 'Alegreya', sans-serif;
+    color: #1f77b4;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+.movie-container {
+    display: flex;
+    text-align: center;
+    margin: 20px;
+    height: max-content;
+    width: fit-content;
+    flex-wrap: wrap;
+}
+.movie-title {
+    flex-wrap: wrap;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(4, 124, 4);
+    margin-top: 10px;
+}
+.movie-rating {
+    font-size: 16px;
+    color: #f39c12;
+}
+.movie-poster {
+    border-radius: 10px;
+    width: 100px;
+    height: 150px;
+    cursor: pointer;
+}
