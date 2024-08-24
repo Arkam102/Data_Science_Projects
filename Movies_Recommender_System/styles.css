@@ -1,12 +1,10 @@
 /* Header Styling */
 .header {
     text-align: center;
-    font-family: 'Alegreya', serif;
+    font-family: 'Alegreya', sans-serif;
     color: #1f77b4;
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 40px;
+    margin-bottom: 20px;
 }
 .movie-container {
     display: flex;
@@ -24,8 +22,8 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Movie Title Styling */
 .movie-title {
+    flex-wrap: wrap;
     font-size: 20px;
     font-weight: bold;
     color: #4CAF50;
