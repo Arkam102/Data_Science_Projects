@@ -62,14 +62,14 @@ body {
 /* Movie Poster Styling */
 .movie-poster {
     border-radius: 10px;
-    width: 120px;
-    height: 180px;
+    width: 150px; /* Increased size */
+    height: 150px; /* Square aspect ratio */
+    object-fit: cover; /* Ensures image covers the container */
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 /* Hover Effects for Movie Poster */
 .movie-poster:hover {
     transform: scale(1.05); /* Slight zoom effect */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
