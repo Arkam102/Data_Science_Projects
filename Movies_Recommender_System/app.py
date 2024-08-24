@@ -14,6 +14,53 @@ movies_file_id = '1xlLQ6XgBlqrhNGpFNRrWcsbJ_1-Tm0NA'  # Replace with your Google
 similarity_output = 'similarity.pkl'
 movies_output = 'movies.pkl'
 
+# CSS content as a string
+css_content = """
+.header {
+    text-align: center;
+    font-family: 'Alegreya', sans-serif;
+    color: #1f77b4;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+.movie-container {
+    display: flex;
+    text-align: center;
+    margin: 20px;
+    height: max-content;
+    width: fit-content;
+    flex-wrap: wrap;
+}
+.movie-title {
+    flex-wrap: wrap;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(4, 124, 4);
+    margin-top: 10px;
+}
+.movie-rating {
+    font-size: 16px;
+    color: #f39c12;
+}
+.movie-poster {
+    border-radius: 10px;
+    width: 100px;
+    height: 150px;
+    cursor: pointer;
+}
+"""
+
+# HTML template content as a string
+html_template = """
+<div class="movie-container">
+    <a href="{{ imdb_url }}" target="_blank">
+        <img src="{{ poster }}" class="movie-poster"/>
+    </a>
+    <div class="movie-title">{{ title }}</div>
+    <div class="movie-rating">Rating: {{ rating }}</div>
+</div>
+"""
+
 # Function to download files from Google Drive
 def download_file_from_drive(file_id, output):
     url = f'https://drive.google.com/uc?id={file_id}'
@@ -48,23 +95,12 @@ def recommend(movie):
 
 # Function to load CSS
 def load_css():
-    css_file = 'styles.css'  # Ensure this file is in the same directory as your app.py
-    if os.path.exists(css_file):
-        with open(css_file) as f:
-            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-    else:
-        st.error("CSS file 'styles.css' not found.")
+    st.markdown(f'<style>{css_content}</style>', unsafe_allow_html=True)
 
 # Function to render HTML template
 def render_template(context):
-    template_file = 'template.html'  # Ensure this file is in the same directory as your app.py
-    if os.path.exists(template_file):
-        with open(template_file) as f:
-            template = Template(f.read())
-        return template.render(context)
-    else:
-        st.error("HTML template 'template.html' not found.")
-        return ''
+    template = Template(html_template)
+    return template.render(context)
 
 # Download the files if they do not exist
 if not os.path.exists(similarity_output):
