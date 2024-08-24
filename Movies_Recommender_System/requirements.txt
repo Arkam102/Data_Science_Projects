@@ -2,3 +2,4 @@ streamlit
 requests
 gdown
 jinja2
+os
