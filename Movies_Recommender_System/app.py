@@ -7,14 +7,20 @@ import os
 
 api_key = st.secrets["TMDB_API_KEY"]
 
-# Google Drive File ID for similarity.pkl
-file_id = '1YZ7ElUf43aptn0kH87mwGSEbZ5MS1f4I'
-output = 'similarity.pkl'
 
-# Function to fetch movie details
-def download_similarity_file():
+# Google Drive File IDs
+similarity_file_id = '1YZ7ElUf43aptn0kH87mwGSEbZ5MS1f4I'
+movies_file_id = '1xlLQ6XgBlqrhNGpFNRrWcsbJ_1-Tm0NA'  # Replace with your Google Drive file ID for movies.pkl
+
+similarity_output = 'similarity.pkl'
+movies_output = 'movies.pkl'
+
+# Function to download files from Google Drive
+def download_file_from_drive(file_id, output):
     url = f'https://drive.google.com/uc?id={file_id}'
     gdown.download(url, output, quiet=False)
+
+# Function to fetch movie details
 def fetch_movie_details(id):
     url = f"https://api.themoviedb.org/3/movie/{id}?api_key={api_key}"
     data = requests.get(url).json()
@@ -43,27 +49,31 @@ def recommend(movie):
 
 # Function to load CSS
 def load_css():
-    with open("D:/Projects/Movie_Recommender/movie_rec_system/styles.css") as f:
+    with open("styles.css") as f:  # Assuming styles.css is also in the project directory
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Function to render HTML template
 def render_template(context):
-    with open("D:/Projects/Movie_Recommender/movie_rec_system/template.html") as f:
+    with open("template.html") as f:  # Assuming template.html is also in the project directory
         template = Template(f.read())
     return template.render(context)
 
-if not os.path.exists(output):
-    download_similarity_file()
+# Download the files if they do not exist
+if not os.path.exists(similarity_output):
+    download_file_from_drive(similarity_file_id, similarity_output)
+
+if not os.path.exists(movies_output):
+    download_file_from_drive(movies_file_id, movies_output)
 
 # Main code
 st.markdown('<div class="header">Movie Recommender System</div>', unsafe_allow_html=True)
-movies = pickle.load(open('D:\Projects\Movie_Recommender\movie_rec_system\movies.pkl', 'rb'))
-similarity = pickle.load(open(output, 'rb'))
+movies = pickle.load(open(movies_output, 'rb'))
+similarity = pickle.load(open(similarity_output, 'rb'))
 
 load_css()
 
 movie_list = movies['title'].values
-selected_movie = st.selectbox("Type or select a movie to get similar recommendations :", movie_list)
+selected_movie = st.selectbox("Type or select a movie to get similar recommendations:", movie_list)
 
 if st.button('Show Recommendation'):
     recommended_movie_details = recommend(selected_movie)
