@@ -7,7 +7,6 @@ import os
 
 api_key = st.secrets["TMDB_API_KEY"]
 
-
 # Google Drive File IDs
 similarity_file_id = '1YZ7ElUf43aptn0kH87mwGSEbZ5MS1f4I'
 movies_file_id = '1xlLQ6XgBlqrhNGpFNRrWcsbJ_1-Tm0NA'  # Replace with your Google Drive file ID for movies.pkl
@@ -49,14 +48,23 @@ def recommend(movie):
 
 # Function to load CSS
 def load_css():
-    with open("styles.css") as f:  # Assuming styles.css is also in the project directory
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    css_file = 'styles.css'  # Ensure this file is in the same directory as your app.py
+    if os.path.exists(css_file):
+        with open(css_file) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    else:
+        st.error("CSS file 'styles.css' not found.")
 
 # Function to render HTML template
 def render_template(context):
-    with open("template.html") as f:  # Assuming template.html is also in the project directory
-        template = Template(f.read())
-    return template.render(context)
+    template_file = 'template.html'  # Ensure this file is in the same directory as your app.py
+    if os.path.exists(template_file):
+        with open(template_file) as f:
+            template = Template(f.read())
+        return template.render(context)
+    else:
+        st.error("HTML template 'template.html' not found.")
+        return ''
 
 # Download the files if they do not exist
 if not os.path.exists(similarity_output):
