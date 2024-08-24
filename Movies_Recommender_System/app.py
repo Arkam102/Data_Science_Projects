@@ -3,6 +3,7 @@ import streamlit as st
 import requests
 import gdown
 from jinja2 import Template
+import os
 
 api_key = st.secrets["TMDB_API_KEY"]
 
