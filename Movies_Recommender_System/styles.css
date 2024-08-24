@@ -8,30 +8,25 @@
     margin-bottom: 30px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
-
-/* Movie Container Styling */
 .movie-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: rgba(255, 255, 255, 0.8); /* Light background for better readability */
+    height: max-content;
+    width: fit-content;
+    flex-wrap: wrap;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-/* Hover Effects for Movie Container */
 .movie-container:hover {
-    background-color: rgba(255, 255, 255, 1); /* Fully opaque on hover */
-    transform: translateY(-5px); /* Slight lift effect */
+    transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Movie Title Styling */
 .movie-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: #4CAF50;
     margin-top: 10px;
@@ -44,20 +39,19 @@
     font-size: 18px;
     color: #f39c12;
     font-weight: bold;
+    text-align: center;
     margin-top: 5px;
 }
 
-/* Movie Poster Styling */
+
 .movie-poster {
     border-radius: 10px;
-    width: 150px; /* Increased size */
-    height: 150px; /* Square aspect ratio */
-    object-fit: cover; /* Ensures image covers the container */
+    width: 150px;
+    height: 150px;
+    object-fit: cover; 
     cursor: pointer;
     transition: transform 0.3s ease;
 }
-
-/* Hover Effects for Movie Poster */
 .movie-poster:hover {
-    transform: scale(1.05); /* Slight zoom effect */
+    transform: scale(1.05);
 }
