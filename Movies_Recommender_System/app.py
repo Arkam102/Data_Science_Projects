@@ -7,19 +7,17 @@ import os
 
 api_key = st.secrets["TMDB_API_KEY"]
 
-# Google Drive File IDs
 similarity_file_id = '1YZ7ElUf43aptn0kH87mwGSEbZ5MS1f4I'
-movies_file_id = '1xlLQ6XgBlqrhNGpFNRrWcsbJ_1-Tm0NA'  # Replace with your Google Drive file ID for movies.pkl
+movies_file_id = '1xlLQ6XgBlqrhNGpFNRrWcsbJ_1-Tm0NA' 
 
 similarity_output = 'similarity.pkl'
 movies_output = 'movies.pkl'
 
-# Function to download files from Google Drive
 def download_file_from_drive(file_id, output):
     url = f'https://drive.google.com/uc?id={file_id}'
     gdown.download(url, output, quiet=False)
 
-# Function to fetch movie details
+
 def fetch_movie_details(id):
     url = f"https://api.themoviedb.org/3/movie/{id}?api_key={api_key}"
     data = requests.get(url).json()
@@ -30,7 +28,7 @@ def fetch_movie_details(id):
     imdb_url = f"https://www.imdb.com/title/{imdb_id}" if imdb_id else '#'
     return full_path, imdb_rating, data.get('title', 'No title available'), imdb_url
 
-# Function to recommend movies
+
 def recommend(movie):
     index = movies[movies['title'] == movie].index[0]
     distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
@@ -46,7 +44,7 @@ def recommend(movie):
         })
     return recommended_movie_details
 
-# Function to load CSS
+
 def load_css():
     css_file_path = os.path.join(os.path.dirname(__file__), "styles.css")
     if os.path.exists(css_file_path):
@@ -55,7 +53,7 @@ def load_css():
     else:
         st.error("CSS file 'styles.css' not found.")
 
-# Function to render HTML template
+
 def render_template(context):
     html_file_path = os.path.join(os.path.dirname(__file__), "template.html")
     if os.path.exists(html_file_path):
@@ -66,14 +64,14 @@ def render_template(context):
         st.error("HTML template 'template.html' not found.")
         return ""
 
-# Download the files if they do not exist
+
 if not os.path.exists(similarity_output):
     download_file_from_drive(similarity_file_id, similarity_output)
 
 if not os.path.exists(movies_output):
     download_file_from_drive(movies_file_id, movies_output)
 
-# Main code
+
 st.markdown('<div class="header">Movie Recommender System</div>', unsafe_allow_html=True)
 movies = pickle.load(open(movies_output, 'rb'))
 similarity = pickle.load(open(similarity_output, 'rb'))
